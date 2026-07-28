@@ -1,0 +1,34 @@
+version: 1
+status: public_reference
+default_route: bounded_inquiry
+
+entity_aliases: {}
+
+dimensions:
+  perspective:
+    - perspective
+    - viewpoint
+  time_window:
+    - time window
+    - period
+
+routes:
+  - id: bounded_inquiry
+    intent_family: inquiry
+    priority: 100
+    summary: Inspect one bounded local observation without extending authority.
+    schema_family: generated
+    default_window_months: 1
+    confidence: 0.70
+    method_ids:
+      - bounded_observation
+    match_any:
+      - inquiry
+      - evidence
+      - observation
+    query_families:
+      - generated_observation
+    required_preconditions:
+      - The input must contain no private or identifying data.
+    next_actions:
+      - Record one counterfactual and one revision trigger.

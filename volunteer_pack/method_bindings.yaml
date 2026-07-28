@@ -1,0 +1,72 @@
+schema_version: "1.0"
+
+bindings:
+  - method_id: bounded_observation
+    role_owner: data_analyst
+    required_knowledge: []
+    connector_bindings:
+      - generated_evidence
+    default_outputs:
+      - observed_fact
+      - evidence_limit
+
+  - method_id: counterfactual_probe
+    role_owner: strategy_analyst
+    required_knowledge: []
+    connector_bindings:
+      - generated_evidence
+    default_outputs:
+      - competing_hypothesis
+      - revision_condition
+
+  - method_id: evidence_synthesis
+    role_owner: lead
+    required_knowledge: []
+    connector_bindings: []
+    default_outputs:
+      - bounded_judgment
+      - unresolved_items
+
+  - method_id: adversarial_adaptation_review
+    role_owner: anti_fraud_specialist
+    required_knowledge: []
+    connector_bindings:
+      - generated_evidence
+    default_outputs:
+      - adversarial_hypotheses
+      - monitoring_triggers
+
+  - method_id: model_uncertainty_review
+    role_owner: model_engineer
+    required_knowledge: []
+    connector_bindings:
+      - generated_evidence
+    default_outputs:
+      - uncertainty_boundary
+      - followup_tests
+
+  - method_id: implementation_contract_review
+    role_owner: risk_platform_engineer
+    required_knowledge: []
+    connector_bindings:
+      - generated_evidence
+    default_outputs:
+      - implementation_contract
+      - verification_plan
+
+  - method_id: controlled_change_plan
+    role_owner: release_engineer
+    required_knowledge: []
+    connector_bindings: []
+    default_outputs:
+      - action_packet
+      - rollback_target
+
+  - method_id: independent_verification
+    role_owner: release_verifier
+    required_knowledge: []
+    connector_bindings:
+      - generated_evidence
+    default_outputs:
+      - verification_result
+      - residual_risk

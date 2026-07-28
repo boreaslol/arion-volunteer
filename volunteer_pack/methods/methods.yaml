@@ -1,0 +1,119 @@
+schema_version: "1.0"
+
+methods:
+  - id: bounded_observation
+    status: active
+    summary: Inspect one bounded synthetic observation without extending scope.
+    intent_tags:
+      - observation
+      - bounded_inquiry
+    inputs:
+      - generated_evidence
+      - evidence_boundary
+    outputs:
+      - observed_fact
+      - evidence_limit
+    implementation: adapter_required
+
+  - id: counterfactual_probe
+    status: active
+    summary: Challenge a bounded judgment with one plausible alternative.
+    intent_tags:
+      - counterfactual
+      - competing_hypothesis
+    inputs:
+      - current_judgment
+      - generated_evidence
+    outputs:
+      - competing_hypothesis
+      - revision_condition
+    implementation: contract_only
+
+  - id: evidence_synthesis
+    status: active
+    summary: Separate synthetic observations from interpretations and unknowns.
+    intent_tags:
+      - evidence
+      - synthesis
+    inputs:
+      - generated_observations
+      - competing_hypotheses
+    outputs:
+      - bounded_judgment
+      - unresolved_items
+    implementation: contract_only
+
+  - id: adversarial_adaptation_review
+    status: active
+    summary: Test how incentives and observation could change participant behavior.
+    intent_tags:
+      - adversarial
+      - adaptation
+      - evasion
+    inputs:
+      - current_controls
+      - bounded_observations
+    outputs:
+      - adversarial_hypotheses
+      - monitoring_triggers
+    implementation: contract_only
+
+  - id: model_uncertainty_review
+    status: active
+    summary: Review calibration, drift, and unsupported model inference.
+    intent_tags:
+      - model
+      - uncertainty
+      - drift
+    inputs:
+      - model_evidence
+      - validation_boundary
+    outputs:
+      - uncertainty_boundary
+      - followup_tests
+    implementation: contract_only
+
+  - id: implementation_contract_review
+    status: active
+    summary: Check that interfaces and failure states preserve an approved contract.
+    intent_tags:
+      - implementation
+      - interface
+      - failure
+    inputs:
+      - approved_behavior
+      - interface_map
+    outputs:
+      - implementation_contract
+      - verification_plan
+    implementation: contract_only
+
+  - id: controlled_change_plan
+    status: active
+    summary: Prepare a reversible action packet without granting execution authority.
+    intent_tags:
+      - change
+      - rollback
+      - provenance
+    inputs:
+      - approved_change
+      - immutable_unit
+    outputs:
+      - action_packet
+      - rollback_target
+    implementation: contract_only
+
+  - id: independent_verification
+    status: active
+    summary: Compare an intended change with independent observed evidence.
+    intent_tags:
+      - verification
+      - independence
+      - residual_risk
+    inputs:
+      - intended_unit
+      - observed_evidence
+    outputs:
+      - verification_result
+      - residual_risk
+    implementation: contract_only

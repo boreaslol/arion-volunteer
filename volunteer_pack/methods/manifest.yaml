@@ -1,0 +1,4 @@
+schema_version: "1.0"
+pack_id: arion-volunteer-methods
+pack_version: "0.1.0"
+catalog: methods.yaml

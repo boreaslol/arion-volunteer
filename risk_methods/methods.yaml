@@ -1,0 +1,185 @@
+schema_version: "1.0"
+
+methods:
+  - id: governed_metric_review
+    status: active
+    summary: Review one governed metric definition and its bounded observations.
+    intent_tags:
+      - metric
+      - definition
+      - overview
+    inputs:
+      - governed_metric_definition
+      - bounded_time_window
+      - allowed_dimensions
+    outputs:
+      - metric_definition
+      - observed_metric_summary
+      - evidence_limitations
+    implementation: adapter_required
+
+  - id: counterfactual_probe
+    status: active
+    summary: Challenge a current judgment with plausible alternative worlds.
+    intent_tags:
+      - counterfactual
+      - competing_hypothesis
+      - revision
+    inputs:
+      - current_judgment
+      - supporting_evidence
+      - known_uncertainties
+    outputs:
+      - competing_hypotheses
+      - discriminating_evidence
+      - revision_conditions
+    implementation: contract_only
+
+  - id: anomaly_scan
+    status: active
+    summary: Scan governed measures and dimensions for material deviations.
+    intent_tags:
+      - anomaly
+      - monitoring
+      - risk_signal
+    inputs:
+      - governed_measures
+      - comparison_baseline
+      - allowed_dimensions
+    outputs:
+      - anomaly_ranked_table
+      - evidence_summary
+    implementation: adapter_required
+
+  - id: pre_post_cohort_compare
+    status: active
+    summary: Compare bounded cohorts before and after a defined intervention.
+    intent_tags:
+      - pre_post
+      - cohort_compare
+      - intervention
+    inputs:
+      - cohort_definition
+      - intervention_boundary
+      - governed_measures
+    outputs:
+      - comparison_table
+      - uncertainty_notes
+    implementation: adapter_required
+
+  - id: ab_compare
+    status: active
+    summary: Compare concurrent treatments under one evidence contract.
+    intent_tags:
+      - ab
+      - challenger
+      - compare
+    inputs:
+      - treatment_definitions
+      - assignment_evidence
+      - governed_measures
+    outputs:
+      - comparison_table
+      - segment_split_table
+      - validity_checks
+    implementation: adapter_required
+
+  - id: policy_impact_assessment
+    status: active
+    summary: Estimate intended, unintended, and uncertain policy effects.
+    intent_tags:
+      - policy
+      - impact
+      - risk_reward
+    inputs:
+      - policy_change
+      - affected_population
+      - outcome_measures
+    outputs:
+      - impact_summary
+      - tradeoff_surface
+      - residual_uncertainty
+    implementation: adapter_required
+
+  - id: optimal_binning_check
+    status: active
+    summary: Review binning monotonicity, boundary stability, and interpretability.
+    intent_tags:
+      - binning
+      - woe
+      - stability
+    inputs:
+      - binned_variable
+      - target_definition
+      - validation_slices
+    outputs:
+      - binning_stability_summary
+      - boundary_risks
+    implementation: adapter_required
+
+  - id: scorecard_breakdown
+    status: active
+    summary: Explain score movement through segments and variable contributions.
+    intent_tags:
+      - scorecard
+      - contribution
+      - segment_shift
+    inputs:
+      - score_outputs
+      - scorecard_definition
+      - comparison_slices
+    outputs:
+      - score_segment_summary
+      - contribution_summary
+    implementation: adapter_required
+
+  - id: model_benchmark_run
+    status: active
+    summary: Compare model candidates under one label and validation contract.
+    intent_tags:
+      - model
+      - benchmark
+      - challenger
+    inputs:
+      - candidate_models
+      - governed_feature_set
+      - label_contract
+    outputs:
+      - benchmark_report
+      - benchmark_registry_snapshot
+      - promotion_questions
+    implementation: adapter_required
+
+  - id: model_explanation
+    status: active
+    summary: Explain model behavior without turning explanation into causality.
+    intent_tags:
+      - model
+      - explanation
+      - uncertainty
+    inputs:
+      - model_outputs
+      - feature_contracts
+      - evaluation_slices
+    outputs:
+      - explanation_summary
+      - unsupported_inferences
+      - followup_tests
+    implementation: adapter_required
+
+  - id: evidence_synthesis
+    status: active
+    summary: Synthesize observed facts, competing interpretations, and next tests.
+    intent_tags:
+      - evidence
+      - synthesis
+      - decision
+    inputs:
+      - observed_facts
+      - role_findings
+      - unresolved_conflicts
+    outputs:
+      - bounded_judgment
+      - evidence_chain
+      - unresolved_items
+    implementation: contract_only

@@ -1,0 +1,10 @@
+schema_version: "1.0"
+
+connectors:
+  - id: generated.read
+    capability: Read generated evidence from the local reference Pack.
+    side_effect_class: local_read
+    resource_slots:
+      - id: dataset
+        required: true
+    secret_slots: []

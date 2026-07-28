@@ -1,0 +1,231 @@
+contract_id: arion_domain_pack
+schema_version: "1.1"
+status: boundary_frozen
+
+purpose: >-
+  Keep Arion's judgment and execution kernel independent from any concrete
+  business domain while allowing one explicitly selected public Method Pack and
+  one Domain Pack to provide methods, role bindings, routing, optional extension
+  roots, connector bindings, knowledge, executors, and governed action protocols.
+
+dependency_direction:
+  allowed: domain_pack_depends_on_arion_core
+  forbidden:
+    - arion_core_imports_domain_pack_implementation
+    - arion_core_discovers_private_repository_implicitly
+    - domain_pack_redefines_core_task_or_working_set_state
+
+core_owns:
+  - task_identity_and_lifecycle
+  - versioned_working_set
+  - bounded_run
+  - agent_instance_identity
+  - direct_run_contract
+  - optional_task_graph_contract
+  - runtime_event_state
+  - artifact_reference_contract
+  - executor_registry_interface
+  - baseline_side_effect_policy
+  - pack_manifest_validation
+  - method_pack_contract_validation
+  - connector_contract_validation
+
+public_method_pack_owns:
+  - transferable_analysis_questions
+  - method_input_contracts
+  - method_output_contracts
+  - method_intent_tags
+  - implementation_readiness
+
+domain_pack_owns:
+  - governance_role_registry
+  - role_question_profiles
+  - route_contracts
+  - workflow_bindings
+  - optional_semantic_roots
+  - curated_domain_knowledge
+  - method_bindings
+  - capability_declarations
+  - connector_contract_selection
+  - connector_resource_bindings
+  - external_secret_references
+  - resource_adapters
+  - executor_bindings
+  - domain_reproducibility_protocols
+  - governed_action_protocols
+  - domain_acceptance_rules
+
+manifest:
+  required_fields:
+    - schema_version
+    - pack_id
+    - pack_version
+    - role_registry
+    - runtime_policy
+    - role_contracts
+    - route_contracts
+    - executor_bindings
+    - method_pack
+    - method_bindings
+    - connector_contracts
+    - connector_bindings
+  optional_fields:
+    - golden_workflows
+    - semantic_roots
+    - knowledge_roots
+    - capability_roots
+    - resource_adapters
+    - action_protocol_roots
+    - reference_documents
+    - implementation_files
+  path_rules:
+    - every_relative_path_must_resolve_inside_pack_root
+    - every_declared_root_must_exist_as_a_directory
+    - every_reference_document_must_exist_as_a_file
+    - every_implementation_file_must_exist_as_a_file
+    - runtime_payload_paths_are_forbidden
+    - credentials_and_connection_values_are_forbidden
+    - missing_optional_roots_do_not_create_implicit_defaults
+
+runtime_loading:
+  selection: explicit_pack_root
+  implicit_repository_discovery_allowed: false
+  multiple_active_packs_allowed: false
+  execution_plan_provenance:
+    - domain_pack
+    - method_pack
+    - resolved_method_bindings
+    - connector_bindings
+    - semantic_roots
+  executor_registration: explicit_manifest_bindings
+  core_default_business_executor_allowed: false
+  core_default_product_vocabulary_allowed: false
+
+composition_identity:
+  domain_pack:
+    required_fields:
+      - schema_version
+      - pack_id
+      - pack_version
+      - manifest
+      - composition_sha256
+    digest_scope: every_declared_contract_root_resource_adapter_and_implementation_file
+  method_pack:
+    required_fields:
+      - schema_version
+      - pack_id
+      - pack_version
+      - manifest
+      - content_sha256
+    digest_scope: method_manifest_and_public_catalog
+  selected_method_binding:
+    required_fields:
+      - method_id
+      - role_owner
+      - required_knowledge
+      - connector_bindings
+      - binding_sha256
+  connector_minimality:
+    rule: execution_connector_bindings_equal_selected_method_binding_union
+    unused_pack_connectors_must_not_enter_plan: true
+
+method_pack:
+  schema_version: "1.0"
+  dependency_direction: domain_pack_binds_public_method_pack
+  public_fields:
+    - id
+    - status
+    - summary
+    - intent_tags
+    - inputs
+    - outputs
+    - implementation
+  forbidden_public_fields:
+    - role_owner
+    - required_knowledge
+    - shared_modules
+    - endpoint
+    - credential
+    - secret_ref
+  pack_binding_fields:
+    - method_id
+    - role_owner
+    - required_knowledge
+    - connector_bindings
+    - shared_modules
+  every_public_method_requires_pack_binding: true
+
+connector_composition:
+  schema_version: "1.0"
+  contract_owns:
+    - capability
+    - side_effect_class
+    - resource_slots
+    - secret_slots
+  binding_owns:
+    - selected_connector
+    - private_resource_names
+    - external_secret_references
+  raw_secret_values_allowed: false
+  allowed_secret_reference_schemes:
+    - profile
+    - target-profile
+    - keychain
+    - secret-manager
+
+executor_bindings:
+  version: 1
+  runtime_kinds:
+    - direct_run
+    - task_graph
+  registration_fields:
+    - match
+    - executor_id
+    - callable
+  match_kinds:
+    - exact
+    - prefix
+  callable_reference_format: module.path:attribute
+  registry_must_match_execution_plan_pack_identity: true
+  registry_must_recompute_selected_method_composition: true
+
+route_contracts:
+  default_route_required: true
+  intent_family_source: route_entry
+  public_method_ids_required_for_analysis_routes: true
+  entity_alias_source: domain_pack
+  core_default_aliases_allowed: false
+
+safety:
+  pack_may_narrow_core_policy: true
+  pack_may_weaken_core_policy: false
+  production_write_requires_governed_action_protocol: true
+  secrets_must_arrive_from_external_runtime_configuration: true
+  connector_bindings_may_store_secret_references_only: true
+  raw_runtime_payload_in_pack_source: false
+  runtime_state_rejects_credential_material: true
+  secret_management_in_execution_plan_scope: false
+
+public_reference_pack:
+  purpose: demonstrate_the_contract_without_real_business_material
+  must_use:
+    - generated_methods
+    - public_roles
+    - generated_routes
+    - empty_semantic_roots
+    - generated_connector_bindings
+    - generated_evidence
+  must_not_use:
+    - semantic_definitions
+    - company_identifiers
+    - production_hosts
+    - customer_or_order_identifiers
+    - real_incident_evidence
+    - private_knowledge
+
+acceptance:
+  - core_tests_pass_when_private_modules_are_blocked
+  - volunteer_pack_runs_without_private_repository
+  - private_pack_can_upgrade_without_copying_core_source
+  - core_can_upgrade_without_reading_private_pack_content
+  - public_export_is_built_from_an_explicit_allowlist

@@ -1,0 +1,31 @@
+schema_version: "1.1"
+pack_id: arion-volunteer
+pack_version: "0.1.0"
+
+role_registry: roles.yaml
+runtime_policy: runtime_policy.yaml
+role_contracts: role_contracts.yaml
+route_contracts: route_contracts.yaml
+executor_bindings: executor_bindings.yaml
+method_pack: methods/manifest.yaml
+method_bindings: method_bindings.yaml
+connector_contracts: connectors/contracts.yaml
+connector_bindings: connectors/bindings.yaml
+
+semantic_roots: []
+capability_roots:
+  - skills
+reference_documents:
+  - README.md
+  - roles/README.md
+  - roles/lead.md
+  - roles/data-analyst.md
+  - roles/strategy-analyst.md
+  - roles/anti-fraud-specialist.md
+  - roles/model-engineer.md
+  - roles/risk-platform-engineer.md
+  - roles/release-engineer.md
+  - roles/release-verifier.md
+  - skills/README.md
+implementation_files:
+  - executors.py

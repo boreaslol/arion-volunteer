@@ -1,0 +1,103 @@
+runtime_activation:
+  governance_model: fixed_role_registry
+  execution_model: adaptive_run
+  orchestrator_role: Lead
+
+roles:
+  - id: lead
+    name: Lead
+    lifecycle_phase: active
+    routable: true
+    instruction_file: roles/lead.md
+    skill_files:
+      - skills/team/bounded-task-routing/SKILL.md
+      - skills/team/evidence-package/SKILL.md
+      - skills/lead/judgment-closure/SKILL.md
+    asset_readiness:
+      run_contract:
+        output_file: outputs/lead.md
+
+  - id: data_analyst
+    name: Data Analyst
+    lifecycle_phase: active
+    routable: true
+    instruction_file: roles/data-analyst.md
+    skill_files:
+      - skills/team/data-quality-gate/SKILL.md
+      - skills/data_analyst/evidence-boundary-review/SKILL.md
+      - skills/team/evidence-package/SKILL.md
+    asset_readiness:
+      run_contract:
+        output_file: outputs/data-analyst.md
+
+  - id: strategy_analyst
+    name: Strategy Analyst
+    lifecycle_phase: active
+    routable: true
+    instruction_file: roles/strategy-analyst.md
+    skill_files:
+      - skills/strategy_analyst/counterfactual-policy-review/SKILL.md
+      - skills/team/evidence-package/SKILL.md
+    asset_readiness:
+      run_contract:
+        output_file: outputs/strategy-analyst.md
+
+  - id: anti_fraud_specialist
+    name: Anti-Fraud Specialist
+    lifecycle_phase: active
+    routable: true
+    instruction_file: roles/anti-fraud-specialist.md
+    skill_files:
+      - skills/anti_fraud_specialist/adversarial-adaptation-review/SKILL.md
+      - skills/team/evidence-package/SKILL.md
+    asset_readiness:
+      run_contract:
+        output_file: outputs/anti-fraud-specialist.md
+
+  - id: model_engineer
+    name: Model Engineer
+    lifecycle_phase: active
+    routable: true
+    instruction_file: roles/model-engineer.md
+    skill_files:
+      - skills/model_engineer/model-uncertainty-review/SKILL.md
+      - skills/team/evidence-package/SKILL.md
+    asset_readiness:
+      run_contract:
+        output_file: outputs/model-engineer.md
+
+  - id: risk_platform_engineer
+    name: Risk Platform Engineer
+    lifecycle_phase: active
+    routable: true
+    instruction_file: roles/risk-platform-engineer.md
+    skill_files:
+      - skills/risk_platform_engineer/implementation-contract-review/SKILL.md
+      - skills/team/evidence-package/SKILL.md
+    asset_readiness:
+      run_contract:
+        output_file: outputs/risk-platform-engineer.md
+
+  - id: release_engineer
+    name: Release Engineer
+    lifecycle_phase: active
+    routable: true
+    instruction_file: roles/release-engineer.md
+    skill_files:
+      - skills/release_engineer/controlled-change-apply/SKILL.md
+      - skills/team/evidence-package/SKILL.md
+    asset_readiness:
+      run_contract:
+        output_file: outputs/release-engineer.md
+
+  - id: release_verifier
+    name: Release Verifier
+    lifecycle_phase: active
+    routable: true
+    instruction_file: roles/release-verifier.md
+    skill_files:
+      - skills/release_verifier/independent-change-verification/SKILL.md
+      - skills/team/evidence-package/SKILL.md
+    asset_readiness:
+      run_contract:
+        output_file: outputs/release-verifier.md

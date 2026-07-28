@@ -1,0 +1,95 @@
+version: arion-volunteer-runtime-v1
+status: public_reference
+
+planning:
+  baseline_owner_role: Data Analyst
+  workflow_bindings:
+    - workflow_id: counterfactual_review
+      maturity: active
+      requested_capability_id: counterfactual_probe
+      method_ids: [counterfactual_probe]
+      route_family: bounded_inquiry
+      chain_id: counterfactual_review_chain
+      owner_role: Strategy Analyst
+      active_roles: [Strategy Analyst]
+      orchestration_mode: task_graph
+      analysis_required: true
+      match_any:
+        - counterfactual
+        - alternative explanation
+        - competing hypothesis
+
+    - workflow_id: adversarial_review
+      maturity: active
+      requested_capability_id: adversarial_adaptation_review
+      method_ids: [adversarial_adaptation_review]
+      route_family: bounded_inquiry
+      chain_id: adversarial_review_chain
+      owner_role: Anti-Fraud Specialist
+      active_roles: [Anti-Fraud Specialist]
+      orchestration_mode: task_graph
+      analysis_required: true
+      match_any:
+        - adversarial
+        - abuse
+        - evasion
+
+    - workflow_id: model_uncertainty_review
+      maturity: active
+      requested_capability_id: model_uncertainty_review
+      method_ids: [model_uncertainty_review]
+      route_family: bounded_inquiry
+      chain_id: model_uncertainty_chain
+      owner_role: Model Engineer
+      active_roles: [Model Engineer]
+      orchestration_mode: task_graph
+      analysis_required: true
+      match_any:
+        - model uncertainty
+        - calibration
+        - drift
+
+    - workflow_id: implementation_contract_review
+      maturity: active
+      requested_capability_id: implementation_contract_review
+      method_ids: [implementation_contract_review]
+      route_family: bounded_inquiry
+      chain_id: implementation_review_chain
+      owner_role: Risk Platform Engineer
+      active_roles: [Risk Platform Engineer]
+      orchestration_mode: task_graph
+      analysis_required: true
+      match_any:
+        - implementation contract
+        - interface failure
+        - engineering review
+
+    - workflow_id: controlled_change_plan
+      maturity: active
+      requested_capability_id: controlled_change_plan
+      method_ids: [controlled_change_plan]
+      route_family: bounded_inquiry
+      chain_id: controlled_change_chain
+      owner_role: Release Engineer
+      active_roles: [Release Engineer]
+      orchestration_mode: task_graph
+      analysis_required: false
+      match_any:
+        - controlled change
+        - rollback plan
+        - apply plan
+
+    - workflow_id: independent_verification
+      maturity: active
+      requested_capability_id: independent_verification
+      method_ids: [independent_verification]
+      route_family: bounded_inquiry
+      chain_id: independent_verification_chain
+      owner_role: Release Verifier
+      active_roles: [Release Verifier]
+      orchestration_mode: task_graph
+      analysis_required: true
+      match_any:
+        - independent verification
+        - verify release
+        - verification evidence

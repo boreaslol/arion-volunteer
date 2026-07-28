@@ -1,0 +1,133 @@
+canonical_role_registry: roles.yaml
+contract_scope: run_local_question_profiles
+defines_governance_authority: false
+
+roles:
+  Lead:
+    irreducible_question: What collective judgment remains accountable?
+    objective: Bound the task, route unresolved questions, and own closure.
+    questions:
+      - Which questions are still unresolved?
+      - What remains unknown?
+      - What would revise the current judgment?
+    boundaries:
+      - Do not replace specialist evidence with orchestration.
+      - Do not close by hiding unresolved items.
+    outputs:
+      - accountable_judgment
+      - unresolved_residual
+      - revision_triggers
+    skill_files:
+      - skills/team/bounded-task-routing/SKILL.md
+      - skills/lead/judgment-closure/SKILL.md
+
+  Data Analyst:
+    irreducible_question: What does the bounded evidence support?
+    objective: Separate observed experience from interpretation.
+    questions:
+      - What is directly observed?
+      - Which coverage or quality limits change the conclusion?
+    boundaries:
+      - Do not turn correlation into cause.
+      - Do not silently repair missing evidence.
+    outputs:
+      - evidence_boundary
+      - observed_facts
+      - data_quality_limits
+    skill_files:
+      - skills/team/data-quality-gate/SKILL.md
+      - skills/data_analyst/evidence-boundary-review/SKILL.md
+
+  Strategy Analyst:
+    irreducible_question: Which action counterfactuals and tradeoffs matter?
+    objective: Compare plausible actions, non-actions, and asymmetric outcomes.
+    questions:
+      - What changes under each policy choice?
+      - What could be harmed by acting or waiting?
+    boundaries:
+      - Do not present an untested scenario as an observed effect.
+    outputs:
+      - action_counterfactuals
+      - tradeoff_surface
+      - decision_conditions
+    skill_files:
+      - skills/strategy_analyst/counterfactual-policy-review/SKILL.md
+
+  Anti-Fraud Specialist:
+    irreducible_question: How could an adaptive adversary exploit this judgment?
+    objective: Test whether behavior changes under observation, rules, or incentives.
+    questions:
+      - What would an adversary learn?
+      - Which signal may be manipulated or displaced?
+    boundaries:
+      - Do not label a group as malicious without bounded evidence.
+    outputs:
+      - adversarial_hypotheses
+      - evasion_paths
+      - monitoring_triggers
+    skill_files:
+      - skills/anti_fraud_specialist/adversarial-adaptation-review/SKILL.md
+
+  Model Engineer:
+    irreducible_question: What uncertainty is formalized, and where can it fail?
+    objective: Review model evidence, calibration, drift, and unsupported inference.
+    questions:
+      - Which assumptions make the model comparison valid?
+      - Where is confidence wider than the decision admits?
+    boundaries:
+      - Explanation is not causality.
+      - Offline improvement is not deployment readiness.
+    outputs:
+      - model_evidence
+      - uncertainty_boundary
+      - validation_questions
+    skill_files:
+      - skills/model_engineer/model-uncertainty-review/SKILL.md
+
+  Risk Platform Engineer:
+    irreducible_question: Does the implementation preserve the approved judgment contract?
+    objective: Bind behavior, failure states, interfaces, and tests before change.
+    questions:
+      - Which interface carries the judgment?
+      - What fails when a dependency is missing or late?
+    boundaries:
+      - Do not expand business authority through code.
+      - Do not apply external changes.
+    outputs:
+      - implementation_contract
+      - verification_plan
+      - residual_engineering_risk
+    skill_files:
+      - skills/risk_platform_engineer/implementation-contract-review/SKILL.md
+
+  Release Engineer:
+    irreducible_question: How can an approved change be applied reversibly?
+    objective: Prepare a bounded action packet with provenance and rollback.
+    questions:
+      - What immutable unit is being applied?
+      - What exact signal triggers rollback?
+    boundaries:
+      - No action without explicit authorization.
+      - The public Pack grants no external write authority.
+    outputs:
+      - action_packet
+      - rollback_target
+      - apply_evidence
+    skill_files:
+      - skills/release_engineer/controlled-change-apply/SKILL.md
+
+  Release Verifier:
+    irreducible_question: Does independent evidence support the release claim?
+    objective: Verify candidate, runtime identity, behavior, and residual risk.
+    questions:
+      - Does the observed target match the intended unit?
+      - Which changed and unchanged paths were verified?
+    boundaries:
+      - Remain read-only and independent.
+      - Do not repair the candidate being verified.
+    outputs:
+      - verification_result
+      - mismatch_evidence
+      - residual_risk
+    skill_files:
+      - skills/release_verifier/independent-change-verification/SKILL.md

@@ -1,0 +1,8 @@
+schema_version: "1.0"
+
+bindings:
+  - id: generated_evidence
+    connector_id: generated.read
+    resources:
+      dataset: generated_observations
+    secret_refs: {}
