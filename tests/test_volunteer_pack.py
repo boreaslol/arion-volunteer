@@ -4,6 +4,7 @@ from pathlib import Path
 import subprocess
 import sys
 
+from pytest import MonkeyPatch
 import yaml
 
 from planner.direct_execution import (
@@ -18,10 +19,11 @@ from planner.unified_execution import (
     build_task_graph_executor_registry,
 )
 from planner.working_set_store import WorkingSetStore
+from volunteer_pack import bundled_pack_root
 
 
 ROOT = Path(__file__).resolve().parents[1]
-VOLUNTEER_PACK_ROOT = ROOT / "volunteer_pack"
+VOLUNTEER_PACK_ROOT = bundled_pack_root()
 EXPECTED_ROLES = (
     "Lead",
     "Data Analyst",
@@ -39,6 +41,43 @@ def _volunteer_pack():
         pack_root=VOLUNTEER_PACK_ROOT,
         manifest_path="manifest.yaml",
     )
+
+
+def test_bundled_pack_root_loads_assets_from_external_cwd(
+    tmp_path: Path,
+    monkeypatch: MonkeyPatch,
+) -> None:
+    external_cwd = tmp_path / "outside-source"
+    external_cwd.mkdir()
+    assert ROOT not in external_cwd.parents
+    monkeypatch.chdir(external_cwd)
+
+    pack_root = bundled_pack_root()
+    assert pack_root.is_absolute()
+    manifest = yaml.safe_load(
+        (pack_root / "manifest.yaml").read_text(encoding="utf-8")
+    )
+    registry = yaml.safe_load(
+        (pack_root / "roles.yaml").read_text(encoding="utf-8")
+    )
+    for role in registry["roles"]:
+        assert (pack_root / role["instruction_file"]).is_file()
+        for skill_file in role["skill_files"]:
+            assert (pack_root / skill_file).is_file()
+
+    domain_pack = load_domain_pack(
+        pack_root=pack_root,
+        manifest_path="manifest.yaml",
+    )
+    planned = plan_runtime(
+        domain_pack=domain_pack,
+        question="Inspect one bounded local observation.",
+        run_id="external-cwd-direct",
+    )
+
+    assert manifest["pack_id"] == "arion-volunteer"
+    assert planned.direct_run is not None
+    assert planned.direct_run.metadata["resolved_method_bindings"]
 
 
 def test_volunteer_pack_registers_roles_skills_without_semantic_layer() -> None:

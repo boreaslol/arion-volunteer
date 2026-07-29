@@ -64,13 +64,12 @@ pytest
 ```
 
 ```python
-from pathlib import Path
-
 from planner.domain_pack import load_domain_pack
 from planner.execution_planner import plan_runtime
+from volunteer_pack import bundled_pack_root
 
 pack = load_domain_pack(
-    pack_root=Path("volunteer_pack"),
+    pack_root=bundled_pack_root(),
     manifest_path="manifest.yaml",
 )
 planned = plan_runtime(
